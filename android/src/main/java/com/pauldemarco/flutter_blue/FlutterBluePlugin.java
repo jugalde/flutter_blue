@@ -471,7 +471,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                     characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
                 }
 
-                if(!gattServer.writeCharacteristic(characteristic)){
+                if(!gattServer.writeCharacteristic(characteristic, data, request.getWriteType())){
                     result.error("write_characteristic_error", "writeCharacteristic failed", null);
                     return;
                 }
