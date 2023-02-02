@@ -465,13 +465,15 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                 }
 
                 // Apply the correct write type
+                int type = BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE;
                 if(request.getWriteType() == Protos.WriteCharacteristicRequest.WriteType.WITHOUT_RESPONSE) {
                     characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
                 } else {
                     characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+                    type = BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
                 }
 
-                if(!gattServer.writeCharacteristic(characteristic, data, request.getWriteType())){
+                if(!gattServer.writeCharacteristic(characteristic, data, type)){
                     result.error("write_characteristic_error", "writeCharacteristic failed", null);
                     return;
                 }
